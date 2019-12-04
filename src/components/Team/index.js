@@ -7,10 +7,10 @@ function Team({ match }) {
   const [stats, setStats] = useState({});
 
   useEffect(() => {
-    fetchItems();
+    fetchTeam();
   }, []);
 
-  const fetchItems = async () => {
+  const fetchTeam = async () => {
     const data = await fetch(`/teams/${match.params.index}`);
 
     seTeam(data);
@@ -20,7 +20,7 @@ function Team({ match }) {
   // TASK #3 - compute team stats
   const computeTeamStats = (id, results) => {
     return {};
-  };
+  }
 
   if (!team) return <div>loading...</div>;
 
