@@ -1,105 +1,42 @@
 import React, { useEffect, useState } from 'react';
 
 import { fetch } from '../../services/api';
+import { getComputedTable } from '../../services/stats';
+import { Link } from 'react-router-dom';
+
+import { TableOfResults, Thead, Tbody, TdTeam } from './styles';
 
 function Table() {
   const [table, setTable] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchMatches();
   }, []);
 
   const fetchMatches = async () => {
-    const data = await fetch(`/weeks`);
+    setLoading(true);
 
-    computeTable(data);
-  };
+    const weeksMatches = await fetch(`/weeks`);
 
-  // TASK #4 - create a table of results
-  const computeTable = weeksMatches => {
-    const mp = new Map();
+    setTable(getComputedTable(weeksMatches));
 
-    weeksMatches.map(week => {
-      week.map(match => calculateTheMatch(mp, match));
-    });
-
-    const tb = Array.from(mp.values());
-
-    tb.sort((clubA, clubB) => {
-      /**
-       * criteria for finding the Premier League ranking are:
-       *  - total points
-       *  - goal difference
-       *  - goals scored
-       */
-      if (clubA.points > clubB.points) return -1;
-      if (clubA.points < clubB.points) return 1;
-
-      if (clubA.gd > clubB.gd) return -1;
-      if (clubA.gd < clubB.gd) return 1;
-
-      if (clubA.gf > clubB.gf) return -1;
-      if (clubA.gf < clubB.gf) return 1;
-
-      return 0;
-    });
-
-    setTable(tb);
-  };
-
-  const calculateTheMatch = (mp, match) => {
-    calculateThePoints(getTeam(mp, match, 0), match.score[0], match.score[1]);
-    calculateThePoints(getTeam(mp, match, 1), match.score[1], match.score[0]);
-  };
-
-  const calculateThePoints = (team, goalsFor, goalsAgainst) => {
-    team.played += 1;
-    team.won += goalsFor > goalsAgainst ? 1 : 0;
-    team.drawn += goalsFor === goalsAgainst ? 1 : 0;
-    team.lost += goalsFor < goalsAgainst ? 1 : 0;
-    team.gf += goalsFor;
-    team.ga += goalsAgainst;
-    team.gd = team.gf - team.gd;
-    team.points +=
-      goalsFor === goalsAgainst ? 1 : goalsFor > goalsAgainst ? 3 : 0;
-  };
-
-  const getTeam = (mp, match, index) => {
-    let id = match.teamIds[index];
-    let team = mp.get(id + '');
-
-    if (team) return team;
-
-    team = {
-      id,
-      logo: `http://acor.sl.pt:7777/logos/${id}`,
-      name: match.teams[index],
-      played: 0,
-      won: 0,
-      drawn: 0,
-      gf: 0, //goals for
-      ga: 0, //goals against
-      gd: 0, //goals difference
-      points: 0,
-    };
-
-    mp.set(id + '', team);
-
-    return team;
+    setLoading(false);
   };
 
   const renderTableData = () => {
     return table.map((club, index) => {
-      const { name, logo, played, won, drawn, gf, ga, gd, points } = club; //destructuring
+      const { id, name, logo, played, won, drawn, gf, ga, gd, points } = club; //destructuring
       const position = index + 1;
 
       return (
         <tr key={index}>
           <td>{position}</td>
-          <td>
-            <img src={logo} />
-          </td>
-          <td>{name}</td>
+          <TdTeam>
+            <Link to={`/teams/${id}`}>
+              <img src={logo} alt={name + ' logo'} /> {name}
+            </Link>
+          </TdTeam>
           <td>{played}</td>
           <td>{won}</td>
           <td>{drawn}</td>
@@ -112,11 +49,12 @@ function Table() {
     });
   };
 
-  if (!table) return <div>loading...</div>;
+  if (loading) return <div>loading...</div>;
+  if (!table.length) return <div>Not found!</div>;
 
   return (
-    <table>
-      <thead>
+    <TableOfResults>
+      <Thead>
         <tr>
           <th>Position</th>
           <th>Club</th>
@@ -128,9 +66,9 @@ function Table() {
           <th>GD</th>
           <th>Points</th>
         </tr>
-      </thead>
-      <tbody>{renderTableData()}</tbody>
-    </table>
+      </Thead>
+      <Tbody>{renderTableData()}</Tbody>
+    </TableOfResults>
   );
 }
 

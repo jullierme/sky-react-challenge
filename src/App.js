@@ -1,6 +1,8 @@
 import React from 'react';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 
+import GlobalStyle from './styles/global';
+
 import Header from './components/Header';
 import Team from './components/Team';
 import Weeks from './components/Weeks';
@@ -16,6 +18,7 @@ const App = () => (
         <Route path="/table" component={Table} />
         <Redirect from="/" to="/weeks/1" />
       </Switch>
+      <GlobalStyle />
     </div>
   </HashRouter>
 );

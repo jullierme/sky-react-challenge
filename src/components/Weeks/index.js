@@ -1,49 +1,64 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { fetch } from '../../services/api';
 import Results from '../Results';
+import {
+  Container,
+  ResultsContainer,
+  WeeksContainer,
+  Title,
+  Week,
+} from './styles';
 
-class Weeks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      chosenWeek: parseInt(this.props.match.params.index, 10), // TASK #2 - make matches start at 1 instead of 0
-    };
-  }
+function Weeks({ match }) {
+  const [weeks, setWeeks] = useState([]);
+  const [chosenWeek, setChosenWeek] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  componentWillMount() {
-    fetch('/weeks').then(data => this.setState({ data: data }));
-  }
+  useEffect(() => {
+    fetchWeeks();
+  }, []);
 
-  componentWillReceiveProps(nextProps) {
-    const a = this.state.chosenWeek;
-    const b = parseInt(nextProps.match.params.index, 10);
-    if (a !== b) {
-      this.setState({ chosenWeek: b });
-    }
-  }
+  useEffect(() => {
+    setChosenWeek(parseInt(match.params.index, 10));
+  }, [match.params.index]);
 
-  render() {
-    if (!this.state.data.length) return <div>loading...</div>;
+  const fetchWeeks = async () => {
+    setLoading(true);
 
-    return (
-      <div className="weeks">
-        <h1>Weeks</h1>
-        <div className="week-chooser">
-          <ul className="unstyled">
-            {this.state.data.map((w, nr) => (
-              <li key={nr}>
-                <Link to={`/weeks/${nr}`}>{nr}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <h2>Results for week #{this.state.chosenWeek}</h2>
-        <Results results={this.state.data[this.state.chosenWeek]} />
-      </div>
-    );
-  }
+    const data = await fetch(`/weeks`);
+
+    setWeeks(data);
+
+    setLoading(false);
+  };
+
+  if (loading) return <div>loading...</div>;
+
+  if (!weeks.length) return <div>Not found!</div>;
+
+  return (
+    <Container>
+      <Title>Weeks</Title>
+
+      <WeeksContainer>
+        {weeks.map((week, index) => (
+          <Week
+            key={index}
+            to={`/weeks/${index + 1}`}
+            selected={chosenWeek - 1 === index ? 1 : 0}
+          >
+            {index + 1}
+          </Week>
+        ))}
+      </WeeksContainer>
+
+      <Title>Results for week #{chosenWeek}</Title>
+
+      <ResultsContainer>
+        <Results results={weeks[chosenWeek - 1]} />
+      </ResultsContainer>
+    </Container>
+  );
 }
 
 export default Weeks;

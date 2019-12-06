@@ -1,17 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-const Header = () => (
-  <div className="header">
-    <ul className="unstyled">
-      <li>
-        <Link to="/table">table</Link>
-      </li>
-      <li>
-        <Link to="/weeks/1">weeks</Link>
-      </li>
-    </ul>
-  </div>
-);
+import {
+  Container,
+  LinkMenu
+} from './styles';
+
+function Header() {
+
+
+  return (
+    <Container>
+      <LinkMenu to="/table">Table</LinkMenu>
+      <LinkMenu to="/weeks/1">Weeks</LinkMenu>
+    </Container>
+  );
+}
 
 export default Header;

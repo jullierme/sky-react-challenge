@@ -1,89 +1,53 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import {
-  Container,
-  TeamLeft,
-  TeamRight,
-  Score,
-  ScoreItem,
-  ScoreSeparator,
-  Logo,
-  LogoContainerLeft,
-  LogoContainerRight,
-} from './style';
+import { Container } from './styles';
 
-// TASK #1 - create result line
-const Result = props => {
-  const {
-    team1Win,
-    team2Win,
-    logoTeam1,
-    logoTeam2,
-    team1,
-    team2,
-    score1,
-    score2,
-  } = props;
-  return (
-    <>
-      <TeamLeft winner={team1Win}>{team1}</TeamLeft>
-      <LogoContainerLeft>
-        <Logo src={logoTeam1}></Logo>
-      </LogoContainerLeft>
-      <Score>
-        <ScoreItem>{score1}</ScoreItem>
-        <ScoreSeparator />
-        <ScoreItem>{score2}</ScoreItem>
-      </Score>
-      <LogoContainerRight>
-        <Logo src={logoTeam2}></Logo>
-      </LogoContainerRight>
-      <TeamRight winner={team2Win}>{team2}</TeamRight>
-    </>
-  );
-};
+import Result from '../Result';
+import { getTeamLogo } from '../../services/api';
 
-class Results extends Component {
-  getLogoUrl = id => {
-    return `http://acor.sl.pt:7777/logos/${id}`;
-  };
+function Results({ results }) {
+  const [matches, setMatches] = useState([]);
 
-  render() {
-    if (!this.props.results || !this.props.results.length) {
-      return <h1>Not found</h1>;
+  useEffect(() => {
+    formatTheResults();
+  }, [results]);
+
+  const formatTheResults = () => {
+    if (!results) {
+      setMatches([]);
+      return;
     }
 
-    const results = [];
-
-    this.props.results.map((item, index) => {
-      console.log(item)
-      const result = {
-        team1Win: item.score[0] > item.score[1],
-        team2Win: item.score[0] < item.score[1],
+    results = results.map((item, index) => {
+      return {
+        teamId1: item.teamIds[0],
+        teamId2: item.teamIds[1],
+        team1Win: item.score[0] > item.score[1] ? 1 : 0,
+        team2Win: item.score[0] < item.score[1] ? 1 : 0,
         team1: item.teams[0],
         team2: item.teams[1],
-        logoTeam1: this.getLogoUrl(item.teamIds[0]),
-        logoTeam2: this.getLogoUrl(item.teamIds[1]),
+        logoTeam1: getTeamLogo(item.teamIds[0]),
+        logoTeam2: getTeamLogo(item.teamIds[1]),
         score1: item.score[0],
         score2: item.score[1],
         id: index,
       };
-
-      results.push(result);
     });
 
-    return (
-      <Container>
-        {results.map(result => {
-          return (
+    setMatches(results);
+  };
 
-              <Result key={result.id} {...result} />
-            
-          );
-        })}
-      </Container>
-    );
+  if (!matches || !matches.length) {
+    return <h1>Not found</h1>;
   }
+
+  return (
+    <Container>
+      {matches.map(match => {
+        return <Result key={match.id} {...match} />;
+      })}
+    </Container>
+  );
 }
 
 export default Results;

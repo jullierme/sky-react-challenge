@@ -1,20 +1,18 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const Container = styled.div`
-  display: grid;
-  grid-template-columns: auto 4em 60px 4em auto;
-  row-gap: 10px;
-  flex: 1;
-  justify-items: right center center center left;
-  align-items: right center center center left;
+/*export const Team = styled(({ winner, ...props }) => <Link {...props} />)`
+  font-size: 1em;
+  font-weight: 900;
+  line-height: 2rem;
+  font-weight: ${props => (props.winner ? 'bold' : 'normal')};
+`;*/
+
+export const Team = styled(Link)`
+  font-size: 1em;
+  font-weight: 900;
+  font-weight: ${props => (props.winner ? 'bold' : 'normal')};
 `;
-
-export const Team = styled.span`
-         font-size: 1em;
-         font-weight: 900;
-         line-height: 2rem;
-         font-weight: ${props => (props.winner ? 'bold' : 'normal')};
-       `;
 
 export const TeamLeft = styled(Team)`
   text-align: right;
@@ -41,7 +39,8 @@ export const LogoContainerRight = styled.div`
 
 export const Score = styled.span`
   text-align: center;
-  line-height: 2rem;
+  line-height: 35px;
+  max-height: 35px;
   background: #37003c;
   color: #fff;
   font-weight: 400;
