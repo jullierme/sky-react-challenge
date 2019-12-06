@@ -1,26 +1,24 @@
 import React from 'react';
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import GlobalStyle from './styles/global';
 
 import Header from './components/Header';
-import Team from './components/Team';
-import Weeks from './components/Weeks';
-import Table from './components/Table';
+import Team from './components/views/Team';
+import Weeks from './components/views/Weeks';
+import Table from './components/views/Table';
 
 const App = () => (
-  <HashRouter>
-    <div>
-      <Header />
-      <Switch>
-        <Route path="/weeks/:index" component={Weeks} />
-        <Route path="/teams/:index" component={Team} />
-        <Route path="/table" component={Table} />
-        <Redirect from="/" to="/weeks/1" />
-      </Switch>
-      <GlobalStyle />
-    </div>
-  </HashRouter>
+  <div>
+    <Header />
+    <Switch>
+      <Route path="/weeks/:index" component={Weeks} />
+      <Route path="/teams/:index" component={Team} />
+      <Route path="/table" component={Table} />
+      <Redirect from="/" to="/table" />
+    </Switch>
+    <GlobalStyle />
+  </div>
 );
 
 export default App;

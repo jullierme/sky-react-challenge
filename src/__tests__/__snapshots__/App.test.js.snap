@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App required routers should match snapshot 1`] = `
+<div>
+  <Header />
+  <Switch>
+    <Route
+      component={[Function]}
+      path="/weeks/:index"
+    />
+    <Route
+      component={[Function]}
+      path="/teams/:index"
+    />
+    <Route
+      component={[Function]}
+      path="/table"
+    />
+    <Redirect
+      from="/"
+      to="/table"
+    />
+  </Switch>
+  <GlobalStyleComponent />
+</div>
+`;

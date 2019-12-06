@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Results from '../Results';
-import { fetch } from '../../services/api';
-import { getComputedTable } from '../../services/stats';
+import Results from '../../../components/Results';
+import { fetch } from '../../../services/api';
+import { getComputedTable } from '../../../services/stats';
 
 import {
   Body,
@@ -76,7 +76,7 @@ function Team({ match }) {
           <Stat>{stats.gd}</Stat>
         </StatsContainer>
         <ResultsContainer>
-          <Results results={team.results} />
+          <Results data={team.results} />
         </ResultsContainer>
       </Body>
     </Container>

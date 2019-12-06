@@ -32,3 +32,9 @@ To run the project, you need to have Node (and NPM) installed:
   * total points
   * goal difference
   * goals scored
+
+
+
+  ---------------------------
+
+  react-app-rewired, babel-plugin-root-import - The idea is override few configurations without eject to use relative path

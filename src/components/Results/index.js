@@ -2,23 +2,23 @@ import React, { useEffect, useState } from 'react';
 
 import { Container } from './styles';
 
-import Result from '../Result';
+import Result from '../../components/Result';
 import { getTeamLogo } from '../../services/api';
 
-function Results({ results }) {
+function Results({ data }) {
   const [matches, setMatches] = useState([]);
 
   useEffect(() => {
     formatTheResults();
-  }, [results]);
+  }, [data]);
 
   const formatTheResults = () => {
-    if (!results) {
+    if (!data) {
       setMatches([]);
       return;
     }
 
-    results = results.map((item, index) => {
+    data = data.map((item, index) => {
       return {
         teamId1: item.teamIds[0],
         teamId2: item.teamIds[1],
@@ -34,7 +34,7 @@ function Results({ results }) {
       };
     });
 
-    setMatches(results);
+    setMatches(data);
   };
 
   if (!matches || !matches.length) {

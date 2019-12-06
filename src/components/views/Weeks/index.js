@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { fetch } from '../../services/api';
-import Results from '../Results';
+import { fetch } from '../../../services/api';
+import Results from '../../../components/Results';
 import {
   Container,
   ResultsContainer,
@@ -55,7 +55,7 @@ function Weeks({ match }) {
       <Title>Results for week #{chosenWeek}</Title>
 
       <ResultsContainer>
-        <Results results={weeks[chosenWeek - 1]} />
+        <Results data={weeks[chosenWeek - 1]} />
       </ResultsContainer>
     </Container>
   );

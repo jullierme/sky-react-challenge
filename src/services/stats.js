@@ -1,4 +1,4 @@
-import { getTeamLogo } from '../api';
+import { getTeamLogo } from './api';
 
 // TASK #4 - create a table of results
 export function getComputedTable(weeksMatches) {

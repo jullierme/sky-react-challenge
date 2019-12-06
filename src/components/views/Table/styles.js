@@ -30,4 +30,8 @@ export const TdTeam = styled.td`
     display: flex;
     align-items: center;
   }
+
+  &:hover {
+    font-weight: 900;
+  }
 `;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { fetch } from '../../services/api';
-import { getComputedTable } from '../../services/stats';
+import { fetch } from '../../../services/api';
+import { getComputedTable } from '../../../services/stats';
 import { Link } from 'react-router-dom';
 
 import { TableOfResults, Thead, Tbody, TdTeam } from './styles';

@@ -1,13 +1,8 @@
 import React from 'react';
 
-import {
-  Container,
-  LinkMenu
-} from './styles';
+import { Container, LinkMenu } from './styles';
 
 function Header() {
-
-
   return (
     <Container>
       <LinkMenu to="/table">Table</LinkMenu>

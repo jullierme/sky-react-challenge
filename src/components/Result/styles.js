@@ -12,6 +12,11 @@ export const Team = styled(Link)`
   font-size: 1em;
   font-weight: 900;
   font-weight: ${props => (props.winner ? 'bold' : 'normal')};
+
+  &:hover {
+    font-weight: 900;
+    color: #ff2882;
+  }
 `;
 
 export const TeamLeft = styled(Team)`

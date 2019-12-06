@@ -12,20 +12,18 @@ import {
 } from './styles';
 
 // TASK #1 - create result line
-const Result = props => {
-  const {
-    teamId1,
-    teamId2,
-    team1Win,
-    team2Win,
-    logoTeam1,
-    logoTeam2,
-    team1,
-    team2,
-    score1,
-    score2,
-  } = props;
-
+const Result = ({
+  teamId1,
+  teamId2,
+  team1Win,
+  team2Win,
+  logoTeam1,
+  logoTeam2,
+  team1,
+  team2,
+  score1,
+  score2,
+}) => {
   return (
     <>
       <TeamLeft to={`/teams/${teamId1}`} winner={team1Win}>
