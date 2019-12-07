@@ -1,33 +1,24 @@
-import React, { useEffect, useState } from 'react';
-
-import { fetch } from '../../../services/api';
-import { getComputedTable } from '../../../services/stats';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { TableOfResults, Thead, Tbody, TdTeam } from './styles';
+import { Table, Thead, Tbody, TdTeam } from './styles';
 
-function Table() {
-  const [table, setTable] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    fetchMatches();
-  }, []);
-
-  const fetchMatches = async () => {
-    setLoading(true);
-
-    const weeksMatches = await fetch(`/weeks`);
-
-    setTable(getComputedTable(weeksMatches));
-
-    setLoading(false);
-  };
-
+function TableViewBody({ table }) {
   const renderTableData = () => {
     return table.map((club, index) => {
-      const { id, name, logo, played, won, drawn, gf, ga, gd, points } = club; //destructuring
-      const position = index + 1;
+      const {
+        id,
+        name,
+        logo,
+        played,
+        won,
+        drawn,
+        gf,
+        ga,
+        gd,
+        points,
+        position,
+      } = club; //destructuring
 
       return (
         <tr key={index}>
@@ -49,11 +40,8 @@ function Table() {
     });
   };
 
-  if (loading) return <div>loading...</div>;
-  if (!table.length) return <div>Not found!</div>;
-
   return (
-    <TableOfResults>
+    <Table>
       <Thead>
         <tr>
           <th>Position</th>
@@ -68,8 +56,8 @@ function Table() {
         </tr>
       </Thead>
       <Tbody>{renderTableData()}</Tbody>
-    </TableOfResults>
+    </Table>
   );
 }
 
-export default Table;
+export default TableViewBody;

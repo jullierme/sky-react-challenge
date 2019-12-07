@@ -1,6 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { Link } from 'react-router-dom';
+import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 import Header from '../../components/Header';
 import { LinkMenu } from '../../components/Header/styles';

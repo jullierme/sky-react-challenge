@@ -2,17 +2,44 @@ import { getTeamLogo } from './api';
 
 // TASK #4 - create a table of results
 export function getComputedTable(weeksMatches) {
+  if (!weeksMatches) return [];
+
   const mp = new Map();
 
   weeksMatches.map(week => {
     return week ? week.map(match => computeTheMatch(mp, match)) : null;
   });
 
-  const tb = Array.from(mp.values());
+  const table = Array.from(mp.values());
 
-  tb.sort(sort);
+  table.sort(sort);
 
-  return tb;
+  setIUpThePosition(table);
+
+  return table;
+}
+
+function setIUpThePosition(table) {
+  let position = 0;
+
+  table.map((team, index) => {
+    position += 1;
+
+    if (index > 0) {
+      const previousTeam = table[index - 1];
+
+      if (
+        previousTeam.points === team.points &&
+        previousTeam.gd === team.gd &&
+        previousTeam.gf === team.gf
+      ) {
+        position -= 1;
+      }
+    }
+
+    team.position = position;
+    return team;
+  });
 }
 
 function sort(clubA, clubB) {
@@ -45,13 +72,14 @@ function computeTheMatch(mp, match) {
 function computeThePoints(club, goalsFor, goalsAgainst) {
   if (!club) return;
 
+  club.position = null;
   club.played += 1;
   club.won += goalsFor > goalsAgainst ? 1 : 0;
   club.drawn += goalsFor === goalsAgainst ? 1 : 0;
   club.lost += goalsFor < goalsAgainst ? 1 : 0;
   club.gf += goalsFor;
   club.ga += goalsAgainst;
-  club.gd = club.gf - club.gd;
+  club.gd = club.gf - club.ga;
   club.points +=
     goalsFor === goalsAgainst ? 1 : goalsFor > goalsAgainst ? 3 : 0;
 }
@@ -70,6 +98,7 @@ function getClub(mp, match, index) {
     played: 0,
     won: 0,
     drawn: 0,
+    lost: 0,
     gf: 0, //goals for
     ga: 0, //goals against
     gd: 0, //goals difference

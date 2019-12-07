@@ -12,43 +12,47 @@ import {
 } from './styles';
 
 // TASK #1 - create result line
-const Result = ({
-  teamId1,
-  teamId2,
-  team1Win,
-  team2Win,
-  logoTeam1,
-  logoTeam2,
-  team1,
-  team2,
-  score1,
-  score2,
-}) => {
-  return (
-    <>
-      <TeamLeft to={`/teams/${teamId1}`} winner={team1Win}>
-        {team1}
-      </TeamLeft>
+class Result extends React.PureComponent {
+  render() {
+    const {
+      teamId1,
+      teamId2,
+      team1Win,
+      team2Win,
+      logoTeam1,
+      logoTeam2,
+      team1,
+      team2,
+      score1,
+      score2,
+    } = this.props;
 
-      <LogoContainerLeft>
-        <Logo src={logoTeam1}></Logo>
-      </LogoContainerLeft>
+    return (
+      <>
+        <TeamLeft to={`/teams/${teamId1}`} winner={team1Win}>
+          {team1}
+        </TeamLeft>
 
-      <Score>
-        <ScoreItem>{score1}</ScoreItem>
-        <ScoreSeparator />
-        <ScoreItem>{score2}</ScoreItem>
-      </Score>
+        <LogoContainerLeft>
+          <Logo src={logoTeam1}></Logo>
+        </LogoContainerLeft>
 
-      <LogoContainerRight>
-        <Logo src={logoTeam2}></Logo>
-      </LogoContainerRight>
+        <Score>
+          <ScoreItem>{score1}</ScoreItem>
+          <ScoreSeparator />
+          <ScoreItem>{score2}</ScoreItem>
+        </Score>
 
-      <TeamRight to={`/teams/${teamId2}`} winner={team2Win}>
-        {team2}
-      </TeamRight>
-    </>
-  );
-};
+        <LogoContainerRight>
+          <Logo src={logoTeam2}></Logo>
+        </LogoContainerRight>
+
+        <TeamRight to={`/teams/${teamId2}`} winner={team2Win}>
+          {team2}
+        </TeamRight>
+      </>
+    );
+  }
+}
 
 export default Result;
