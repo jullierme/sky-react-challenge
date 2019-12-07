@@ -28,13 +28,19 @@ function TeamView({ match }) {
   const getTeamStats = (id, results) => {
     const table = getComputedTable([results]);
 
+    console.log(
+      table.find(club => {
+        return club.id === id;
+      })
+    );
+
     return table.find(club => {
       return club.id === id;
     });
   };
 
   if (loading) return <div>loading...</div>;
-  if (!team.length) return <div>Not found!</div>;
+  if (!stats) return <div>Not found!</div>;
 
   return <TeamViewBody stats={stats} team={team} />;
 }

@@ -1,4 +1,4 @@
-/*import axios from 'axios';
+import axios from 'axios';
 
 export const API = 'http://acor.sl.pt:7777';
 
@@ -18,7 +18,8 @@ export function fetch(path) {
 export function getTeamLogo(id) {
   return `http://acor.sl.pt:7777/logos/${id}.png`;
 }
-*/
+
+/*
 import request from 'superagent';
 
 const API = 'http://acor.sl.pt:7777';
@@ -37,3 +38,4 @@ export function fetch(path) {
 export function getTeamLogo(id) {
   return `http://acor.sl.pt:7777/logos/${id}.png`;
 }
+*/

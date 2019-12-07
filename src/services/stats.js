@@ -2,7 +2,7 @@ import { getTeamLogo } from './api';
 
 // TASK #4 - create a table of results
 export function getComputedTable(weeksMatches) {
-  if (!weeksMatches) return [];
+  if (!weeksMatches.length) return [];
 
   const mp = new Map();
 
@@ -14,12 +14,15 @@ export function getComputedTable(weeksMatches) {
 
   table.sort(sort);
 
-  setIUpThePosition(table);
+  addThePosition(table);
 
   return table;
 }
 
-function setIUpThePosition(table) {
+/*
+  Teams with the same points, gd, and gf have the same position
+*/
+function addThePosition(table) {
   let position = 0;
 
   table.map((team, index) => {
@@ -38,6 +41,7 @@ function setIUpThePosition(table) {
     }
 
     team.position = position;
+
     return team;
   });
 }

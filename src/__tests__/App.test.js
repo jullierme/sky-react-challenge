@@ -28,7 +28,7 @@ describe('App required routers', () => {
 
   /*it('should render table page when on root', async () => {
     await act(async () => {
-      const wrapper = mount(
+      const wrapper = shallow(
         <MemoryRouter initialEntries={['/']}>
           <App />
         </MemoryRouter>
