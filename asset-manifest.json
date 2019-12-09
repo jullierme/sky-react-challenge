@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.js": "/sky-react-challenge/static/js/main.b1e0e882.chunk.js",
+    "main.js.map": "/sky-react-challenge/static/js/main.b1e0e882.chunk.js.map",
+    "runtime-main.js": "/sky-react-challenge/static/js/runtime-main.d6916820.js",
+    "runtime-main.js.map": "/sky-react-challenge/static/js/runtime-main.d6916820.js.map",
+    "static/js/2.b9420d22.chunk.js": "/sky-react-challenge/static/js/2.b9420d22.chunk.js",
+    "static/js/2.b9420d22.chunk.js.map": "/sky-react-challenge/static/js/2.b9420d22.chunk.js.map",
+    "index.html": "/sky-react-challenge/index.html",
+    "precache-manifest.f4f6ed14c94205a82be8bcbc2844f205.js": "/sky-react-challenge/precache-manifest.f4f6ed14c94205a82be8bcbc2844f205.js",
+    "service-worker.js": "/sky-react-challenge/service-worker.js"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d6916820.js",
+    "static/js/2.b9420d22.chunk.js",
+    "static/js/main.b1e0e882.chunk.js"
+  ]
+}
