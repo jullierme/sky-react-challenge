@@ -16,7 +16,7 @@ export function fetch(path) {
 }
 
 export function getTeamLogo(id) {
-  return `http://acor.sl.pt:7777/logos/${id}.png`;
+  return `${API}/logos/${id}.png`;
 }
 
 /*
